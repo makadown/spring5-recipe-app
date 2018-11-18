@@ -1,7 +1,17 @@
 package guru.springframework.domain;
 
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Recipe {
@@ -21,7 +31,14 @@ public class Recipe {
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
 
-    //private Difficulty difficulty;
+    @Enumerated(value=EnumType.STRING)
+    private Difficulty difficulty;
+    
+    /* @javax.persistence.Lob signifies that the annotated field should be represented as BLOB (binary data) in the DataBase.
+     * 
+     * Fuente: 
+     * https://stackoverflow.com/questions/29511133/what-is-the-significance-of-javax-persistence-lob-annotation-in-jpa
+     * */
     @Lob
     private Byte[] image;
 
@@ -115,4 +132,14 @@ public class Recipe {
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
+	}
+    
+    
 }
