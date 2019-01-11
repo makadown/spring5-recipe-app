@@ -1,24 +1,24 @@
 package guru.springframework.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import guru.springframework.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import guru.springframework.services.RecipeService;
-
-
+/**
+ * Created by jt on 6/1/17.
+ */
 @Controller
 public class IndexController {
-	
-	@Autowired
-	private RecipeService recipeService;
 
+    private final RecipeService recipeService;
 
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage(Model model) {
-        //log.debug("Getting Index page");
 
         model.addAttribute("recipes", recipeService.getRecipes());
 

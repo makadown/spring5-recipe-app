@@ -1,15 +1,11 @@
 package guru.springframework.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
 public class Ingredient {
 
@@ -22,9 +18,24 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER)
     private UnitOfMeasure uom;
 
-    /* Con esto se logra relacion *-1 bidireccional con Recipe. */
     @ManyToOne
     private Recipe recipe;
+
+    public Ingredient() {
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+    }
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+        this.recipe = recipe;
+    }
 
     public Long getId() {
         return id;
@@ -58,28 +69,11 @@ public class Ingredient {
         this.recipe = recipe;
     }
 
-	public UnitOfMeasure getUom() {
-		return uom;
-	}
-
-	public void setUom(UnitOfMeasure uom) {
-		this.uom = uom;
-	}
-	
-	public Ingredient() {
+    public UnitOfMeasure getUom() {
+        return uom;
     }
 
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
-        this.description = description;
-        this.amount = amount;
+    public void setUom(UnitOfMeasure uom) {
         this.uom = uom;
     }
-
-    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
-        this.description = description;
-        this.amount = amount;
-        this.uom = uom;
-        this.recipe = recipe;
-    }
-    
 }

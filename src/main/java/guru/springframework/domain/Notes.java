@@ -2,26 +2,28 @@ package guru.springframework.domain;
 
 import javax.persistence.*;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Entity
 public class Notes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
-    /* Aquí no configuro cascada porque estoy permitiendo a Recipe que se adueñe de esta entidad.
-     * Si borro una receta, también se borrarán sus notas. */
     @OneToOne
     private Recipe recipe;
+
     @Lob
     private String recipeNotes;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Recipe getRecipe() {
